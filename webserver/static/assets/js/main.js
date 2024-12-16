@@ -334,33 +334,26 @@
 			});
 
 			$window.on('hashchange', function(event) {
+				// Skip hashchange logic if the form action is being triggered
+				if ($('form').length > 0 && event.originalEvent.newURL.includes('/submit_form')) {
+					return;
+				}
 
 				// Empty hash?
-					if (location.hash == ''
-					||	location.hash == '#') {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Hide.
-							$main._hide();
-
-					}
+				if (location.hash == '' || location.hash == '#') {
+					event.preventDefault();
+					event.stopPropagation();
+					$main._hide();
+				}
 
 				// Otherwise, check for a matching article.
-					else if ($main_articles.filter(location.hash).length > 0) {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Show article.
-							$main._show(location.hash.substr(1));
-
-					}
-
+				else if ($main_articles.filter(location.hash).length > 0) {
+					event.preventDefault();
+					event.stopPropagation();
+					$main._show(location.hash.substr(1));
+				}
 			});
+
 
 		// Scroll restoration.
 		// This prevents the page from scrolling back to the top on a hashchange.
@@ -397,5 +390,13 @@
 					$window.on('load', function() {
 						$main._show(location.hash.substr(1), true);
 					});
+								
+			// Prevent hashchange interference with form submissions
+			$('form').on('submit', function(event) {
+				// Allow form submission without triggering hashchange logic
+				event.stopPropagation();
+			});
+
+
 
 })(jQuery);
