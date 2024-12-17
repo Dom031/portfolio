@@ -1,4 +1,4 @@
-from flask import Flask, render_template # Importing the Flask modules
+from flask import Flask, render_template, request # Importing the Flask modules
 app = Flask(__name__)
 
 @app.route('/')
@@ -7,5 +7,9 @@ def hello_world():
 
 @app.route('/submit_form', methods=['POST', "GET"])
 def submit_form():
-    print("Form submission received!")  # Debugging output
-    return 'Form submitted'
+    if request.method == "POST":
+        data = request.form.to_dict()
+        print(data)
+        return 'form submitted'
+    else:
+        return 'something went wrong'

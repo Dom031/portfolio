@@ -12,6 +12,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
+    <link href=/static/favicon_io/favicon.ico rel="icon" />
     <link rel="stylesheet" href="static/assets/css/main.css" />
     <noscript
       ><link rel="stylesheet" href="static/assets/css/noscript.css"
@@ -44,6 +45,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
             <!--<li><a href="#elements">Elements</a></li>-->
+            <li><a href="#form-section">Form</a></li>
           </ul>
         </nav>
       </header>
@@ -121,15 +123,15 @@
         <!-- Contact -->
         <article id="contact">
           <h2 class="major">Contact</h2>
-          <form method="post" action="#">
+          <form method="post" action="/submit_form">
             <div class="fields">
               <div class="field half">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" />
+                <input name="name" type="text" name="name" id="name" />
               </div>
               <div class="field half">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="email" />
+                <input name="email" type="text" name="email" id="email" />
               </div>
               <div class="field">
                 <label for="message">Message</label>
@@ -390,9 +392,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
             </ul>
           </section>
 
-          <section>
+          <section id="form-section">
             <h3 class="major">Form</h3>
-            <form method="post" action="/submit_form">
+            <form method="post" action="#">
               <div class="fields">
                 <div class="field half">
                   <label for="demo-name">Name</label>

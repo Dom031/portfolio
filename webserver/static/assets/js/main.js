@@ -5,6 +5,11 @@
 */
 
 (function($) {
+				// Prevent hashchange interference with form submissions
+	$('form').on('submit', function(event) {
+				// Allow form submission without triggering hashchange logic
+		event.stopPropagation();
+		});
 
 	var	$window = $(window),
 		$body = $('body'),
@@ -334,9 +339,9 @@
 			});
 
 			$window.on('hashchange', function(event) {
-				// Skip hashchange logic if the form action is being triggered
-				if ($('form').length > 0 && event.originalEvent.newURL.includes('/submit_form')) {
-					return;
+				// Check if a form is being submitted
+				if ($('form').is(':focus')) {
+					return; // Skip hashchange logic for form submission
 				}
 
 				// Empty hash?
@@ -345,7 +350,6 @@
 					event.stopPropagation();
 					$main._hide();
 				}
-
 				// Otherwise, check for a matching article.
 				else if ($main_articles.filter(location.hash).length > 0) {
 					event.preventDefault();
@@ -391,11 +395,7 @@
 						$main._show(location.hash.substr(1), true);
 					});
 								
-			// Prevent hashchange interference with form submissions
-			$('form').on('submit', function(event) {
-				// Allow form submission without triggering hashchange logic
-				event.stopPropagation();
-			});
+
 
 
 
